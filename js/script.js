@@ -1,9 +1,10 @@
 window.addEventListener('DOMContentLoaded', function() {
+
     let infoTabContent = document.querySelectorAll('.info-tabcontent'),
         infoHeaderTab = document.querySelectorAll('.info-header-tab'),
         info = document.querySelector('.info');
     
-    function manageContent(contentMassive, TabsMassive, parent){
+    function manageContent(_contentMassive, _TabsMassive, _parent){
     
         function delCont(n) {
             for (let i = n; i < infoTabContent.length; i++) {
@@ -25,4 +26,57 @@ window.addEventListener('DOMContentLoaded', function() {
         })
     }
     manageContent(infoTabContent, infoHeaderTab, info);
+
+    //Timer
+    let deadLine = '2020-02-11';
+
+    function getTimeRemaining (endtime) {
+        let time = Date.parse(endtime) - Date.parse(new Date());
+        if (time > 0){
+            seconds = Math.floor((time / 1000) % 60),
+            minutes = Math.floor((time / 1000 / 60) % 60),
+            hours = Math.floor((time / 1000 /60 /60));
+        
+            return {
+                'total' : time,
+                'seconds' : seconds,
+                'minutes' : minutes,
+                'hours' : hours
+            }
+        } else {
+            return {
+                'total' : 0,
+                'seconds' : '00',
+                'minutes' : '00',
+                'hours' : '00'
+            }
+        }
+    }
+    
+    function setTimer (id, endtime) {
+        let timer = document.getElementById(id),
+            hours = timer.querySelector('.hours'),
+            minutes = timer.querySelector('.minutes'),
+            seconds = timer.querySelector('.seconds'),
+            interval = setInterval(setClock, 1000);
+
+        
+        console.log(hours);
+    
+    
+    
+        function setClock () {
+            let t = getTimeRemaining(endtime);
+            hours.textContent = t.hours;
+            minutes.textContent = t.minutes;
+            seconds.textContent = t.seconds;
+
+            if (t.total <= 0) {
+                clearInterval(interval);
+            }
+
+        }
+    }
+
+    setTimer('timer', deadLine);
 })
