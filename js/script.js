@@ -238,5 +238,60 @@ window.addEventListener('DOMContentLoaded', function() {
         }
     })
 
+    //Calc
+    let numberOfPeople = document.querySelectorAll('.counter-block-input')[0],
+        numberOfDays = document.querySelectorAll('.counter-block-input')[1],
+        place = document.getElementById('select'),
+        totalValue = document.getElementById('total'),
+        personesSum = 0,
+        daysSum = 0,
+        total = 0;
+
+        totalValue.innerHTML = 0;
+
+        numberOfPeople.addEventListener('change', function() {
+            personesSum = +this.value;
+
+            if (personesSum == 0) {
+                daysSum = 0;
+            }
+            
+            total = (daysSum + personesSum) * 4000;
+
+            if (numberOfDays.value == '') {
+                totalValue.innerHTML = 0;
+            } else {
+                totalValue.innerHTML = total;
+            }
+        })
+
+        numberOfDays.addEventListener('change', function() {
+            daysSum = +this.value;
+
+            if (daysSum == 0) {
+                personesSum = 0;
+            }
+            
+            total = (daysSum + personesSum) * 4000;
+
+            if (numberOfPeople.value == '') {
+                totalValue.innerHTML = 0;
+            } else {
+                totalValue.innerHTML = total;
+            }
+        })
+
+        place.addEventListener('change', function() {
+            if (numberOfPeople.value == '' || numberOfDays.value == '') {
+                totalValue.innerHTML = 0;
+            } else {
+                let a = total;
+                totalValue.innerHTML = a * this.options[this.selectedIndex].value;
+            }
+        })
+        
+        
+    
+
 
 })
